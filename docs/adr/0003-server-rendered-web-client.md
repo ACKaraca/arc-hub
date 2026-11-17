@@ -35,6 +35,9 @@ models and drawings with the same engine as Arc Review.
 - Highly interactive grid editing is less fluid than in a single-page application; inline editing
   and partial updates cover the common cases.
 - The viewer version used by the Hub is pinned per release and recorded on the viewer page.
+- Browser authoring loads the browser build of the owning Arc product as a further versioned
+  static asset on an editing page (HB-FILE-028); customer extensions run only as sandboxed
+  components or isolated frames ([ADR-0008](0008-sandboxed-extensions-and-curated-catalog.md)).
 
 ## Alternatives considered
 

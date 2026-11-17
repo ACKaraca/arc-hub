@@ -28,7 +28,7 @@ Domain objects:
 | HB-VIEW-009 | Office and text documents | Office documents, plain text and Markdown are viewed through a PDF derivative produced by an isolated converter process. When no converter is configured the page offers download only. | T2 | 3 |
 | HB-VIEW-010 | Point clouds | E57 and LAS/LAZ versions are viewed through a streaming level-of-detail derivative with point size and color-by options. | T3 | 4 |
 | HB-VIEW-011 | Accessible viewer page | The model tree, properties, sheets list and viewer commands are fully keyboard operable with accessible names, and every element shown in the canvas is also reachable through the tree and property table. | T1 | 2 |
-| HB-VIEW-012 | Tablet browsers | The web client adapts to tablet screen sizes for viewing, markup, issues and form filling, using touch input. It requires a connection. | T2 | 3 |
+| HB-VIEW-012 | Tablet browsers | The web client adapts to tablet screen sizes for viewing, markup, issues and form filling, using touch input. It requires a connection; offline field use is provided by the native mobile clients (HB-MOBILE-003). | T2 | 3 |
 | HB-VIEW-013 | Embeddable viewer | Administrators allow a view of a version to be embedded in an external web page through a scoped, expiring token and an allowlist of embedding origins. | T3 | 4 |
 
 ## Sheets
@@ -58,3 +58,15 @@ Domain objects:
 | HB-VIEW-024 | Journal comparison | For Arc native documents, the comparison between two versions can also list the recorded commands between their journal positions with author and time, giving an exact account of what changed. | T2 | 3 |
 | HB-VIEW-025 | Comparison export | 2D comparisons export as PDF; 3D comparisons export as CSV and PDF change lists with element identifiers. | T2 | 3 |
 | HB-VIEW-026 | Change summary on new versions | When a sheet or model receives a new version, a job computes a summary of changes against the previous version and shows it in the history and in notifications to followers. | T2 | 3 |
+
+## Proprietary formats without a published specification
+
+Files in formats whose specification is not published are not parsed by Arc. They are viewed
+through exchange packages produced by connectors (suite
+[ADR-0017](https://github.com/ACKaraca/arc-suite/blob/main/docs/adr/0017-exchange-connectors-and-licensed-bridges.md)),
+or by a bridge worker that an organization licenses itself (HB-JOB-018).
+
+| ID | Capability | Behavior | Tier | Phase |
+|---|---|---|---|---|
+| HB-VIEW-027 | Viewing through exchange packages | A version in such a format that carries an Arc exchange package is viewed like any open format: viewable, thumbnail, property index and references are produced from the package by the headless Arc Review application (HB-DATA-001, HB-DATA-006). The original file stays the version; the package is bound to its digest. | T3 | 5 |
+| HB-VIEW-028 | Exchange package status | Connectors upload the package with the version (HB-DATA-005). The version page shows the source application, the connector version, the fidelity level (view, data or edit) and the loss report. A version with neither a package nor a bridge result shows that state, the download action and a link to the connector documentation; it is never guessed at. | T3 | 5 |

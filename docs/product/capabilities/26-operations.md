@@ -52,3 +52,27 @@ Domain objects:
 | HB-OPS-020 | Horizontal scaling | Web nodes are stateless behind a load balancer; sessions and push fan-out go through PostgreSQL, and workers scale independently. | T2 | 3 |
 | HB-OPS-021 | High availability | With a highly available PostgreSQL service, redundant storage and two or more web nodes, the server has no single process whose loss interrupts service; documented failure modes describe the behavior when each dependency fails. | T2 | 3 |
 | HB-OPS-022 | Site cache | A server in the cache role at a remote office serves downloads and viewables from a local copy of blobs it has fetched, authorizing each request with the main server; uploads pass through. | T3 | 4 |
+
+## Multi-site replication
+
+Asynchronous replication between servers lets sites that cannot share one server each work at
+local speed. It is distinct from the site cache (HB-OPS-022), which is read-mostly, and from
+folder federation between organizations (HB-PKG-013). The decision is recorded in
+[ADR-0009](../../adr/0009-asynchronous-multi-site-replication.md).
+
+Domain objects:
+
+- **Replication group**: the servers that replicate a set of projects between them.
+- **Peer**: one server of a group, with a stable site identifier.
+- **Replication stream**: the ordered operations of one project from one peer, with acknowledgements.
+
+| ID | Capability | Behavior | Tier | Phase |
+|---|---|---|---|---|
+| HB-OPS-023 | Replication groups | Server administrators join servers into a group with mutual authentication, name the replicated projects and seed a new peer from a complete export (HB-ADMIN-012). Each peer keeps its own PostgreSQL database, blob storage and identity provider configuration. | T3 | 5 |
+| HB-OPS-024 | Asynchronous change streams | Domain operations, their events and audit records travel as ordered streams per project and origin peer, each operation stamped with site identifier and logical time. Delivery resumes from the last acknowledged position after an interruption and applies each operation once. | T3 | 5 |
+| HB-OPS-025 | Conflict rules | Versions of one document created at two peers are all kept and ordered by logical time and site identifier, with their origin shown. Scalar fields take the later change and keep the other as history and a conflict record. Decisions, sent transmittals and audit records are created at one peer and never merge. A transition that is invalid at the receiving peer becomes a conflict record. A document lock is held at the document's home peer; a remote user who cannot reach it edits as in HB-SYNC-004. No rule discards an upload or a change. | T3 | 5 |
+| HB-OPS-026 | Conflict review | Project managers and administrators list conflict records with both states, and resolve each by choosing one, combining them or keeping both; resolutions replicate like any change. | T3 | 5 |
+| HB-OPS-027 | Identity across peers | Groups, memberships and grants of replicated projects replicate; users link to each peer's identity provider by verified email or subject mapping. A revocation replicates with priority over other operations. | T3 | 5 |
+| HB-OPS-028 | Blob placement policy | Per project and peer, blobs are stored in full, fetched on demand with digest verification, or held as metadata only. Derivatives replicate or are regenerated locally, as chosen. | T3 | 5 |
+| HB-OPS-029 | Replication status | Administrators see per peer and project the lag, backlog, failures and last contact; an OpenMetrics endpoint exposes them. A group can pause or resume a stream, and an unreachable peer never blocks the others. | T3 | 5 |
+| HB-OPS-030 | Site recovery and removal | A peer can serve as recovery source for another; the documentation states the recovery point as the lag at the time of failure. Removing a peer keeps its data on that server and ends replication, and the group's remaining peers keep their copies. | T3 | 5 |

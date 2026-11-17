@@ -91,8 +91,11 @@ in `arc-suite`; change it there first.
 - Domain crates do not depend on axum, SQL drivers or storage SDKs; the server uses no `arc-gpu`,
   `arc-ui` or `arc-app`.
 - The web client works without JavaScript for reading and forms; enhancement scripts are
-  first-party, hashed and few ([ADR-0003](docs/adr/0003-server-rendered-web-client.md)).
-- Conflicts keep both sides; no code path discards a user's upload or change set.
+  first-party, hashed and few ([ADR-0003](docs/adr/0003-server-rendered-web-client.md)). Customer
+  extensions run only as sandboxed components or isolated frames with an approved permission set
+  ([ADR-0008](docs/adr/0008-sandboxed-extensions-and-curated-catalog.md)).
+- Conflicts keep both sides, also between replicated sites and between a device and the server; no
+  code path discards a user's upload or change set.
 - Migrations are forward-only and follow expand then contract.
 - No outbound network call happens unless an administrator configured it.
 

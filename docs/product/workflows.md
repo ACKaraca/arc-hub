@@ -1,6 +1,6 @@
 # Reference workflows
 
-Fourteen end-to-end workflows used as acceptance scenarios. Each lists the steps in Arc Hub's
+Seventeen end-to-end workflows used as acceptance scenarios. Each lists the steps in Arc Hub's
 vocabulary and ends with observable acceptance results; capability IDs show what each step
 exercises.
 
@@ -271,3 +271,62 @@ exercises.
 - During the rolling upgrade, users continue to browse and upload without errors.
 - Audit chain verification passes on the restored and upgraded servers.
 - The organization export imports into a fresh server with identifiers and histories preserved.
+
+## W15. Field inspection on a phone without a connection
+
+1. A site manager marks the sheets, the model view of one floor and an inspection form as an
+   offline set before leaving the office (HB-MOBILE-003, HB-MOBILE-004, HB-MOBILE-005).
+2. On site, without coverage, an inspector scans a QR label on a door set and the item opens
+   (HB-MOBILE-013).
+3. The inspector completes the checklist, takes photos, signs, and a failed check item creates an
+   issue pinned on the sheet (HB-MOBILE-009, HB-MOBILE-010, HB-MOBILE-007).
+4. Back in coverage the outbox sends everything in order; a push notification reaches the
+   responsible engineer (HB-MOBILE-015, HB-MOBILE-012).
+5. The engineer, who edited the same issue in the browser meanwhile, sees both states and chooses
+   the result (HB-MOBILE-015).
+
+**Acceptance**
+
+- Offline items open without a connection and show a banner when a newer version exists.
+- The submitted form is immutable and stored as data and as a PDF (HB-SITE-008).
+- Nothing entered offline is lost or silently overwritten.
+- The push payload contains no record text or file content.
+- After an administrator revokes the device, its next contact ends access and removes the offline store.
+
+## W16. Add an extension from the curated catalog
+
+1. An organization administrator uploads an extension package, reviews its declared permission
+   set and approves the version (HB-INTEG-012, HB-INTEG-015, HB-INTEG-017).
+2. A project administrator enables it for one project and places its panel on the project home
+   (HB-INTEG-016).
+3. A member opens the panel; it shows data the member may read and nothing else
+   (HB-INTEG-013, HB-INTEG-014).
+4. A new version asks for an additional scope; it stays disabled until approved
+   (HB-INTEG-018).
+5. The administrator disables the extension from the integration registry (HB-INTEG-020).
+
+**Acceptance**
+
+- The frame cannot reach origins it did not declare, nor read Hub cookies or storage.
+- The extension's calls appear in the audit trail attributed to it and to the member.
+- The new version does not run until its permission difference is approved.
+- Disabling takes effect for open pages within one minute.
+
+## W17. Work on one project at two sites
+
+1. Server administrators join two servers into a replication group, seed the second from an
+   export and name one project (HB-OPS-023).
+2. Both offices upload versions of the same drawing while the link is down
+   (HB-OPS-024).
+3. The link returns; both versions appear on both servers with their origin, and a field edited at
+   both sites produces a conflict record (HB-OPS-025).
+4. A project manager resolves the conflict (HB-OPS-026).
+5. An administrator revokes a user at one site; the revocation reaches the other site first among
+   the pending operations (HB-OPS-027).
+
+**Acceptance**
+
+- No upload or change is lost at either site.
+- Both servers end with the same versions, decisions and audit chains, verified by digests.
+- Lag and backlog show in the status page and the metrics endpoint (HB-OPS-029).
+- The unreachable peer does not delay the other site while the link is down.

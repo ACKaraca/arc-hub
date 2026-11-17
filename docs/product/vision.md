@@ -10,13 +10,13 @@ models, drawings, product structures and media every day, and they need one plac
 has a history, each decision has a record and each participant sees exactly what they should.
 Today that place is usually a hosted service that the customer cannot run, inspect or leave with
 all of its data, priced per seat or per call, separate for building projects, product data and
-media production, and reachable from desktop tools only through add-ins.
+media production, and reachable from desktop tools only through add-ins and from the field only through a browser.
 
 Arc Hub is a self-hostable collaboration and data-management server for design projects. It is a
 common data environment, a product data management system, a production tracker and an automation
 platform in one Rust server that an organization runs on its own hardware or in its own cloud
-account. Every Arc application connects to it natively, and any other tool connects through open
-APIs and standards.
+account. Every Arc application connects to it natively, native mobile clients serve field work, and
+any other tool connects through open APIs, standards and connector-based integrations.
 
 ## Primary users and their deliverables
 
@@ -30,7 +30,9 @@ APIs and standards.
 | Producers, coordinators and supervisors | Shot and asset tracking, schedules, reviewed and approved submissions |
 | Artists and designers | Published outputs from tasks, notes addressed and resolved |
 | Clients and external reviewers | Decisions and comments on shared deliverables |
-| IT administrators and integrators | A running, backed-up, upgraded server; automations and integrations |
+| Field staff and inspectors | Offline sheets and models, completed checklists, photos and issues from a phone or tablet |
+| Estimators and procurement staff | Estimates from takeoff quantities, bid comparisons, purchase orders linked to cost lines |
+| IT administrators and integrators | A running, backed-up, upgraded server; automations, extensions and integrations |
 
 ## Product principles
 
@@ -56,7 +58,8 @@ The five modules and the platform underneath them:
 
 - **Documents**: organizations, projects, members and permissions; folders, files and versions;
   viewing and comparison; markups; issues; reviews and approvals; transmittals and packages;
-  ISO 19650 information management; search; desktop synchronization; construction-phase records.
+  ISO 19650 information management; search; desktop synchronization; construction-phase records,
+  estimating, bid management and procurement.
 - **Design collaboration**: design packages between teams, cross-organization sharing,
   multi-user editing sessions with element borrowing, branches and merges, model sets, automatic
   clash runs and model checking.
@@ -66,27 +69,32 @@ The five modules and the platform underneath them:
 - **Production tracking**: entities, tasks and pipeline steps, published outputs, submissions,
   playlists and review, notes, scheduling, resource planning and time logs, client review.
 - **Platform**: REST API, authentication and identity, webhooks, automation jobs running headless
-  Arc applications, model derivatives and property services, granular data queries, data
-  exchange between applications, administration, audit and reporting, deployment and operations,
-  integrations and optional assistance.
+  Arc applications, model derivatives and property services, granular data queries, live data
+  streams linked to model elements, data exchange between applications, administration, audit and
+  reporting, deployment and operations including multi-site replication, integrations, sandboxed
+  extensions with an administrator-curated catalog, and optional assistance.
+- **Field and authoring clients**: native mobile clients built from the same Rust crates, with
+  offline documents, sheets and models, issues, markups, forms, photos, reviews, push
+  notifications and barcode lookup ([ADR-0007](../adr/0007-native-mobile-clients.md)); opening the
+  browser build of the owning Arc product for a document, with check-out and session handling;
+  a toolkit of connector-based integrations inside content-creation and CAD applications.
+- **Proprietary formats**: files in formats without a published specification are viewed through
+  Arc exchange packages that connectors produce and through bridge workers that an organization
+  licenses itself, as set out in suite [ADR-0017](https://github.com/ACKaraca/arc-suite/blob/main/docs/adr/0017-exchange-connectors-and-licensed-bridges.md).
+- **Working-level commercial records**: estimates from takeoff quantities, bid packages and
+  comparison, and purchase orders linked to cost lines.
+- **Processing as jobs**: reality-capture processing, media ingest and footage reconstruction run
+  open tools as automation jobs; the server performs none of this work itself.
 
 ## Non-goals
 
 | Non-goal | Reason |
 |---|---|
-| Native mobile applications | The web client works on tablet browsers; maintaining native mobile apps is out of proportion for a self-hosted server. Offline field work is covered by Arc applications on laptops. |
-| Authoring models in the browser | Authoring belongs to Arc desktop applications; the browser views, reviews and administers. |
-| Viewing proprietary formats without published specifications | The suite never reverse engineers formats; such files are stored and versioned, and shared as open-format exports. |
-| Estimating, bid management and procurement | These are commercial systems with their own data; Arc Hub stores their documents and links quantities and cost lines at a light level. |
-| Full accounting, payments and payroll | Cost tracking stays at budget and commitment level and exchanges data with accounting systems. |
-| Facility operations twins with live sensor data | A different product category; models and records are exported to such systems. |
-| Photogrammetry and reality-capture processing | Processing belongs to specialized tools; resulting point clouds and meshes are stored and viewed. |
-| Converting live-action footage into CG elements | Specialized media processing outside collaboration. |
-| On-set camera ingest and dailies streaming | Specialized media infrastructure; submissions start from files. |
-| Pipeline integrations shipped inside other vendors' applications | Arc Hub provides the API and Python client; studios script other applications themselves. |
-| Embedding custom web pages or scripts in the web client | Running third-party code in the client conflicts with its security model; custom actions open external pages instead. |
-| An application marketplace | Integrations are installed by administrators from their own sources. |
-| Multi-master replication between sites | Remote sites use cache nodes; organizations that need separate servers federate shares between them. |
+| Reverse engineering undocumented formats or binaries | A legal and licensing problem. Files in such formats are stored and versioned, viewed through exchange packages from connectors running in the user's own licensed application, or converted by a bridge worker the organization licenses (HB-VIEW-027, HB-JOB-018). |
+| Full accounting, payments and payroll | Cost tracking, estimating and procurement stay at the level of budgets, commitments and orders and exchange data with accounting systems. The server moves no money. |
+| Payments, prices and revenue sharing in the extension catalog | The catalog lists what administrators approve; it handles no purchases (HB-INTEG-017). |
+| Live camera feeds and streaming from capture hardware | Specialized media infrastructure. Files from cameras enter through ingest jobs (HB-JOB-021). |
+| Equipment control, building automation and maintenance work management | Another product category. The Hub stores readings and links them to model elements (HB-DATA-015) and exports models and records to such systems. |
 | Per-call or per-seat metering in the software | Contrary to the product principles. |
 
 ## Positioning
@@ -114,3 +122,8 @@ Kitsu and Autodesk Flow Production Tracking.
 | Desktop work that tolerates disconnection and preserves conflicts | HB-SYNC-004, HB-SYNC-011, HB-PDM-007 |
 | Content and element search filtered by permissions | HB-SEARCH-002, HB-SEARCH-003, HB-SEARCH-007 |
 | Agent access through the Model Context Protocol with explicit boundaries | HB-ASSIST-003, HB-ASSIST-004 |
+| Native mobile clients from the same Rust crates, with offline models and sheets | HB-MOBILE-001, HB-MOBILE-003, HB-MOBILE-005 |
+| Authoring in the browser under the same check-out and audit rules as the desktop | HB-FILE-028, HB-FILE-029, HB-SESSION-017 |
+| Sandboxed extensions with declared permissions and an administrator-curated catalog, no payments | HB-INTEG-015, HB-INTEG-017, HB-INTEG-020 |
+| Integrations inside other applications built on suite connectors and the public API | HB-PIPE-001, HB-PIPE-004, HB-PIPE-007 |
+| Asynchronous multi-site replication that keeps both sides of every conflict | HB-OPS-024, HB-OPS-025, HB-OPS-026 |

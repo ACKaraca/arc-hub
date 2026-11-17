@@ -70,3 +70,16 @@ Domain objects:
 | HB-FILE-025 | Version purge | Administrators purge intermediate versions older than a chosen age. Versions that carry a revision label, review outcome, transmittal, document set or package membership are always kept; purges are audited and freed blobs are reclaimed by garbage collection. | T2 | 3 |
 | HB-FILE-026 | Storage accounting | Folder and project properties show stored bytes for current versions, earlier versions, derivatives and trash. | T2 | 2 |
 | HB-FILE-027 | Share links | Users with Manage, where the organization allows it, create links to one version for viewing or download, with expiry, optional password and optional restriction to signed-in members. Links are revocable and every access is recorded. | T2 | 2 |
+
+## Browser authoring
+
+The browser build of an Arc product is the same Rust code compiled to WebAssembly with the same UI
+kit (suite [ADR-0018](https://github.com/ACKaraca/arc-suite/blob/main/docs/adr/0018-web-and-mobile-targets.md)).
+The Hub opens it for a document; editing rules are those of the desktop.
+
+| ID | Capability | Behavior | Tier | Phase |
+|---|---|---|---|---|
+| HB-FILE-028 | Edit in the browser | For a document whose owning Arc product ships a browser build, the version page offers an edit action that loads that build as a versioned static asset, opens the version in it and hands it a token scoped to that document. The owning product is chosen from the file format through a registry that administrators can adjust per organization. Formats without a browser build, and files of a newer major format than the build supports, open read-only. | T3 | 5 |
+| HB-FILE-029 | Check-out for browser sessions | Starting a browser editing session takes the document lock (HB-FILE-019) or check-out (HB-PDM-001) like any other client and shows the client as the browser. The session sends heartbeats; a session without heartbeats for a configured time releases the lock after its recovery data is stored. | T3 | 5 |
+| HB-FILE-030 | Saving and recovery | Saving from the browser creates a version through the same operation as the desktop, with naming and required-property validation (HB-SYNC-003). Between saves the editor stores recovery data for its user on the server, which is not a version and is removed after 30 days; after a closed tab or a lost connection the user resumes from it. | T3 | 5 |
+| HB-FILE-031 | Session administration | Administrators list active editing sessions with user, document, editor build and age, and end one with a reason; the holder keeps the recovery data. Sessions are audited, the editor build is recorded in the version metadata (HB-FILE-008), and an organization limit on concurrent sessions protects the server. | T3 | 5 |

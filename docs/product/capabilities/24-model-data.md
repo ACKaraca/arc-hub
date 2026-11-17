@@ -40,3 +40,22 @@ Domain objects:
 | HB-DATA-012 | Parameter library | Organizations keep a versioned library of shared property definitions (names, data types, units, classification references) that Arc applications import so models use consistent properties. | T2 | 3 |
 | HB-DATA-013 | Exchanges | An exchange is a named, versioned subset of elements selected by a query from a source model, materialized as an IFC subset or Arc document fragment with a property table. Consumers in other Arc applications link the exchange. | T3 | 4 |
 | HB-DATA-014 | Exchange updates | When the source publishes a new version, the exchange is recomputed; consumers are notified, choose to update and receive a mapping report of added, removed and changed elements. | T3 | 4 |
+
+## Live data streams
+
+Data streams link live readings, such as sensor values, to model elements so that a model shows
+current conditions. The Hub stores and shows the readings; it does not control equipment or manage
+maintenance work.
+
+Domain objects:
+
+- **Data stream**: a source of timestamped readings with unit, expected rate and retention.
+- **Stream link**: the binding of a stream to an element identifier of a model.
+
+| ID | Capability | Behavior | Tier | Phase |
+|---|---|---|---|---|
+| HB-DATA-015 | Data streams | A stream is registered with name, unit, value type, expected rate and retention. Readings arrive over an authenticated ingest operation of the API or an MQTT subscription that an administrator configures, are validated against the stream definition and rate-limited per source. | T3 | 5 |
+| HB-DATA-016 | Stream links | A stream links to elements by source identifier in a document; a CSV mapping imports many links at once. Links resolve against the latest version, and the Hub lists links whose element is missing from a newer version. | T3 | 5 |
+| HB-DATA-017 | Live values in the viewer | The viewer shows the latest value, its age and a time-series chart for a selected linked element, and can color elements by value range. Values update over the push channel (HB-API-020) and are shown only to users who may read the stream. | T3 | 5 |
+| HB-DATA-018 | Stream thresholds | A threshold on a stream, with hysteresis and a hold time, fires an automation rule (HB-JOB-013) that can notify, create an issue linked to the element, or start a job; repeated crossings update one open issue. | T3 | 5 |
+| HB-DATA-019 | Reading storage and export | Readings are kept in time-partitioned tables with downsampled rollups and per-stream retention. Users export a range as CSV or Parquet. Reading volume is reported in the usage summary (HB-ORG-005). | T3 | 5 |

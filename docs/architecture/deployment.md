@@ -65,7 +65,9 @@ flowchart LR
   acceptable; writes and permission-sensitive reads that follow a write use the primary.
 - Worker pools scale independently by queue depth.
 - Remote offices can run a cache node (HB-OPS-022) that serves downloads and viewables from local
-  copies after authorizing each request with the main server.
+  copies after authorizing each request with the main server. Sites that must write locally join a
+  replication group (HB-OPS-023 to HB-OPS-030), where each peer is a complete installation with
+  its own database and storage ([ADR-0009](../adr/0009-asynchronous-multi-site-replication.md)).
 - High availability relies on a highly available PostgreSQL service and redundant storage; Arc Hub
   adds no consensus layer of its own.
 

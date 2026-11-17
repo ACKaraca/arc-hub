@@ -5,8 +5,8 @@ Map of the Arc Hub documentation, one line per document.
 ## Product
 
 - [Vision](product/vision.md): purpose, users, principles, scope, non-goals, positioning and differentiators.
-- [Capabilities](product/capabilities/README.md): legend and index of the 28 capability areas.
-- [Workflows](product/workflows.md): fourteen end-to-end reference workflows used as acceptance scenarios.
+- [Capabilities](product/capabilities/README.md): legend and index of the 30 capability areas.
+- [Workflows](product/workflows.md): seventeen end-to-end reference workflows used as acceptance scenarios.
 - [Open questions](product/open-questions.md): behaviors that still need verification or a decision.
 
 ## Architecture

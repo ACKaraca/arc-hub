@@ -14,13 +14,15 @@ the job worker; a role chosen at startup decides which of these a process perfor
 work never runs inside the server: it is delegated to headless Arc applications executed by the
 worker in sandboxed processes ([ADR-0005](../adr/0005-headless-arc-runners.md)). The browser client
 is server-rendered HTML with progressive enhancement and embeds the Arc Review viewer compiled to
-WebAssembly ([ADR-0003](../adr/0003-server-rendered-web-client.md)).
+WebAssembly ([ADR-0003](../adr/0003-server-rendered-web-client.md)); for authoring it loads the
+browser build of the owning Arc product. Native mobile clients use the same public API
+([ADR-0007](../adr/0007-native-mobile-clients.md)).
 
 ```mermaid
 flowchart LR
   subgraph Clients
     B[Browser]
-    A[Arc desktop applications]
+    A[Arc desktop, browser and mobile clients]
     S[Sync agent]
     X[Scripts, integrations, agents]
   end
@@ -160,6 +162,17 @@ open pages and applications through push channels fed by the outbox.
   element index stores typed property values for granular queries.
 - **Session service**: change-set sequencing and borrow arbitration for multi-user editing,
   serialized per shared document.
+- **Extension host**: loads approved extensions. WebAssembly components run in the worker process
+  family under the component model; isolated frames are served from a separate origin. Both reach
+  the domain only through API operations with the user's permissions
+  ([ADR-0008](../adr/0008-sandboxed-extensions-and-curated-catalog.md)).
+- **Device and push service**: mobile device registration and revocation, push delivery through
+  configured platform services, and label generation for code lookup
+  ([ADR-0007](../adr/0007-native-mobile-clients.md)).
+- **Replication service**: ordered per-project operation streams between peers with conflict
+  records ([ADR-0009](../adr/0009-asynchronous-multi-site-replication.md)).
+- **Stream ingest**: validation, rate limiting and time-partitioned storage of readings for data
+  streams linked to model elements (HB-DATA-015).
 
 ## Threading and background work
 
@@ -196,6 +209,9 @@ node). They are acceptance targets, not measurements.
 | Jobs | Headless Arc applications executing commands and Python scripts through the Arc Automation Protocol. |
 | Automation rules | Event, condition and actions, optionally as node graphs. |
 | Guard plug-ins | Sandboxed WebAssembly modules validating operations. |
+| Extensions | Sandboxed components and isolated frames with declared permission sets, from an administrator-curated catalog. |
+| Mobile and browser clients | Native mobile clients and the browser build of Arc products, both through the public API. |
+| Connector integrations | Integrations inside other applications on the public API and the Python client (HB-PIPE-001). |
 | Administration command | `arc-hub-admin` for operators. |
 | Model Context Protocol | Tools derived from the operation registry for agents acting as users. |
 

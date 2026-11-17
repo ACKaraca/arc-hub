@@ -1,7 +1,7 @@
 # Construction records
 
-Construction-phase records at a deliberately light level: requests for information, submittals,
-forms, photos, schedules, cost tracking, meetings and daily logs. All of them are record types on
+Construction-phase records at a working level: requests for information, submittals, forms,
+photos, schedules, cost tracking, estimating, bid management, procurement, meetings and daily logs. All of them are record types on
 the shared workflow engine, so permissions, numbering, notifications and reports behave as for
 issues.
 
@@ -13,6 +13,7 @@ Domain objects:
 - **Photo**: an image with time, location and links.
 - **Schedule** and **activity**: an imported program of work.
 - **Budget line**, **commitment** and **change event**: light cost tracking.
+- **Estimate**, **bid package** and **purchase order**: working-level estimating, bidding and procurement records.
 - **Meeting** and **daily log**.
 
 ## Requests for information
@@ -64,3 +65,33 @@ Domain objects:
 |---|---|---|---|---|
 | HB-SITE-019 | Meetings | Meetings hold agenda items, attendees, minutes and action items created as issues of a chosen type; open items carry over to the next meeting of the series, and minutes export as PDF. | T3 | 4 |
 | HB-SITE-020 | Daily logs | A daily log records weather as entered, workforce per company, equipment, notes and photos, and becomes read-only after sign-off. | T3 | 5 |
+
+## Estimating
+
+Estimates are working-level records that sit in the project cost breakdown beside the budget. The
+server computes totals and comparisons; it holds no price books of its own and exchanges cost
+data with accounting systems (HB-SITE-017).
+
+| ID | Capability | Behavior | Tier | Phase |
+|---|---|---|---|---|
+| HB-SITE-021 | Estimates | An estimate has versions, each with lines (cost code, description, quantity, unit, unit cost, markup) grouped in sections, with totals per section and per cost code. One currency applies per project. | T3 | 5 |
+| HB-SITE-022 | Estimates from takeoff quantities | Lines are created from quantities of takeoff packages (HB-SITE-018) or from element queries (HB-DATA-010) and keep a link to the source. When the source model changes, the estimate shows the changed quantities and updates them only on request. | T3 | 5 |
+| HB-SITE-023 | Unit cost libraries | Organizations keep versioned libraries of unit costs and assemblies (a unit cost made of lines) that import from CSV; a line records the library version it took its cost from. | T3 | 5 |
+| HB-SITE-024 | Estimate to budget | Approving an estimate version creates or updates budget lines (HB-SITE-014). Two estimate versions compare line by line, with quantity, unit cost and total differences. | T3 | 5 |
+
+## Bid management
+
+| ID | Capability | Behavior | Tier | Phase |
+|---|---|---|---|---|
+| HB-SITE-025 | Bid packages | A bid package names a trade or scope and holds scope documents, a bid form of line items, invited companies, a due date and the instructions. Addenda are issued to every invited company through transmittals (HB-TRANS-001) and clarifying questions are records answered to all bidders. | T3 | 5 |
+| HB-SITE-026 | Bid submission | Invited companies submit form values and attachments through their account or an expiring link. Bids stay sealed, visible to nobody including project members, until the due date; the server records opening, and no bid changes after the deadline. | T3 | 5 |
+| HB-SITE-027 | Bid comparison | A comparison sheet lines up bids per form line, with inclusions and exclusions marked so that scopes are leveled, totals and spread, and notes per bidder. It exports as CSV and PDF. | T3 | 5 |
+| HB-SITE-028 | Award | Awarding a bid records the decision with its reason, notifies bidders and creates a commitment (HB-SITE-015) with its schedule-of-values lines from the bid form. | T3 | 5 |
+
+## Procurement
+
+| ID | Capability | Behavior | Tier | Phase |
+|---|---|---|---|---|
+| HB-SITE-029 | Purchase orders | A purchase order has vendor, delivery address and dates, and lines linked to budget or commitment lines. It runs through a workflow (draft, issued, partly received, closed) and is issued to the vendor through a transmittal. The server processes no payments. | T3 | 5 |
+| HB-SITE-030 | Receipts and order changes | Receipts are recorded against order lines. A change to an issued order is a new revision linked to a change event (HB-SITE-016); committed amounts follow the latest approved revision. | T3 | 5 |
+| HB-SITE-031 | Procurement log | The log lists purchase orders with submittal items (HB-SITE-004), lead times and required-on-site dates, and flags items whose expected delivery falls after the required date. It exports as CSV. | T3 | 5 |

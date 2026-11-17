@@ -120,6 +120,14 @@ minutes. Delivery is at least once; receivers deduplicate by `id`. Ordering is g
 `subject` within one subscription, not across subjects. Clients that cannot accept inbound calls
 read `GET /orgs/{org}/events?after={seq}` and long-poll for new events.
 
+## Clients beyond the browser
+
+Native mobile clients, the browser builds of Arc products, connector-based integrations and
+extensions use the operations of this API and nothing else. Mobile clients rely on idempotency
+keys, ETags and resumable transfers to send queued changes safely; extensions receive a
+short-lived token of the acting user limited to the scopes in their approved permission set.
+Readings for data streams enter through one authenticated ingest operation that accepts batches.
+
 ## Alignment with openCDE and the BCF API
 
 | Standard | Implementation |
