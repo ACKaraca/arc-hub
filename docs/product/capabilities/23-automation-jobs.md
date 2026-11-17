@@ -39,3 +39,18 @@ Domain objects:
 | HB-JOB-015 | Guard plug-ins | WebAssembly plug-ins without ambient authority validate uploads, check-ins and lifecycle transitions: they receive the operation and its records and return allow or refuse with a message within a 2-second limit. A plug-in fault refuses the operation. | T3 | 4 |
 | HB-JOB-016 | Rule graphs | Rules with multi-step logic can be authored as node graphs on the suite's node engine and are evaluated on the server with bounded steps and time. | T3 | 4 |
 | HB-JOB-017 | External compute | A job definition can target an external batch system through an adapter that submits the same sandboxed runner command, for example to a container cluster. | T3 | 5 |
+
+## Licensed bridges and open processing tools
+
+Jobs here run tools that the Arc applications do not contain: a conversion library licensed by the
+operator, or open tools for capture processing. They use the sandbox and the scoped token of
+HB-JOB-005. Reverse engineering undocumented formats and running protected scripts of other
+applications stay excluded.
+
+| ID | Capability | Behavior | Tier | Phase |
+|---|---|---|---|---|
+| HB-JOB-018 | Bridge workers | An operator who has installed and licensed a conversion library (suite [ADR-0017](https://github.com/ACKaraca/arc-suite/blob/main/docs/adr/0017-exchange-connectors-and-licensed-bridges.md)) registers a worker with a bridge label for the formats it handles. The library runs as a separate process in the job sandbox and is neither distributed with the Hub nor needed for any core workflow; without such a worker, bridge jobs wait with an explanatory message. | T3 | 5 |
+| HB-JOB-019 | Exchange package conversion | A job converts a version in a proprietary format into an Arc exchange package on a bridge worker, started by a folder trigger or by hand. The package is stored as a derivative bound to the version digest, marked as produced by the bridge with its identity and version, and carries a loss report; failures are reported and can be retried. | T3 | 5 |
+| HB-JOB-020 | Reality-capture processing | Job templates run open processing tools (image-based reconstruction, point-cloud registration and filtering, mesh generation) on photo or scan inputs on labeled workers, with GPU where needed. Results (E57, LAS, LAZ, PLY, glTF, orthophotos) are stored as versions with input digests and tool versions in the run record. The server itself performs no processing. | T3 | 5 |
+| HB-JOB-021 | Media ingest | Camera original files copied or uploaded into an ingest folder start a job that runs open tools to verify checksums, read metadata (timecode, camera, lens), produce proxies and thumbnails and prepare submissions (HB-MEDIA-001), with a result per file. Live camera feeds are not ingested. | T3 | 5 |
+| HB-JOB-022 | Footage reconstruction | Job templates run open tools on frames extracted from footage (camera solving, reconstruction) and store the resulting camera data, point clouds or meshes as published outputs (HB-PROD-017) for artists to continue from. Results are inputs for artists; no automatic cleanup is promised. | T3 | 5 |

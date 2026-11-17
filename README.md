@@ -13,7 +13,9 @@ versioned files, viewing, markups, issues, reviews, transmittals and ISO 19650 i
 management), design collaboration (packages between teams, automatic clash runs, multi-user
 editing), product data management (check-in and check-out, revisions, lifecycles, items, bills of
 materials, change orders) and production tracking (entities, tasks, review playlists, schedules),
-on a platform of open APIs, webhooks and automation jobs that run headless Arc applications.
+on a platform of open APIs, webhooks, sandboxed extensions and automation jobs that run headless
+Arc applications. Native mobile clients serve field work, and connector-based integrations bring
+the Hub into other content-creation and CAD applications.
 
 ## Who it is for
 
@@ -53,6 +55,8 @@ media production; and the IT administrators and integrators who run and connect 
 | Operations | Installation, upgrades, backup, observability, scaling | [26](docs/product/capabilities/26-operations.md) |
 | Integrations | Arc suite, collaboration tools, migration, enterprise systems | [27](docs/product/capabilities/27-integrations.md) |
 | Assistant | Optional assistance and agent access boundaries | [28](docs/product/capabilities/28-assistant.md) |
+| Mobile clients | Native phone and tablet clients, offline field work, push, barcode lookup | [29](docs/product/capabilities/29-mobile-clients.md) |
+| Application integrations | Connector-based publish, load and task context inside other applications | [30](docs/product/capabilities/30-application-integrations.md) |
 
 ## How it fits in the suite
 
@@ -128,6 +132,7 @@ Details: [architecture overview](docs/architecture/overview.md).
 | M4 Product data | 3 | Lifecycles, items, bills of materials, change orders |
 | M5 Production tracking and construction records | 4 | Media productions and construction phases on the same server |
 | M6 Depth and scale | 5 | Multi-user editing, model merges, federation, assistance |
+| M7 Field work, extensions and integrations | 5 | Mobile clients, browser authoring, extensions, application integrations, replication |
 
 Full milestones and exit criteria: [roadmap](docs/roadmap.md).
 

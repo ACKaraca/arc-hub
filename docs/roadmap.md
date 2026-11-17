@@ -167,7 +167,7 @@ customers automate with headless Arc applications.
 
 **Scope**
 
-- All phase-5 rows, including HB-SESSION-001 to HB-SESSION-013, HB-SESSION-015, HB-SESSION-016,
+- All phase-5 rows not listed in M7, including HB-SESSION-001 to HB-SESSION-013, HB-SESSION-015, HB-SESSION-016,
   HB-PKG-013, HB-ASSIST-001, HB-ASSIST-002, HB-ASSIST-005 to HB-ASSIST-010, HB-SITE-014 to
   HB-SITE-018, HB-SITE-020.
 
@@ -183,3 +183,40 @@ customers automate with headless Arc applications.
   conflicts listed and no change lost.
 - A folder share between two Hub servers mirrors versions with verified digests and stops after
   revocation.
+
+## M7: Field work, extensions and integrations (phase 5)
+
+**Goal**: native mobile clients, authoring through the browser build of Arc products, proprietary
+formats through exchange packages and licensed bridges, sandboxed extensions, integrations inside
+other applications, working-level commercial records, multi-site replication and processing jobs.
+
+**Scope**
+
+- HB-MOBILE-001 to HB-MOBILE-017 ([ADR-0007](adr/0007-native-mobile-clients.md))
+- HB-FILE-028 to HB-FILE-031, HB-SESSION-017
+- HB-VIEW-027, HB-VIEW-028, HB-JOB-018, HB-JOB-019
+- HB-PIPE-001 to HB-PIPE-014
+- HB-INTEG-012 to HB-INTEG-021 ([ADR-0008](adr/0008-sandboxed-extensions-and-curated-catalog.md))
+- HB-SITE-021 to HB-SITE-031
+- HB-OPS-023 to HB-OPS-030 ([ADR-0009](adr/0009-asynchronous-multi-site-replication.md))
+- HB-JOB-020 to HB-JOB-022, HB-DATA-015 to HB-DATA-019
+
+**Dependencies**
+
+- M6 for multi-user sessions with browser participants; M5 for production tracking and construction
+  records.
+- Suite phase 5: browser and mobile builds of Arc products (suite
+  [ADR-0018](https://github.com/ACKaraca/arc-suite/blob/main/docs/adr/0018-web-and-mobile-targets.md)),
+  the exchange package and the connectors (suite
+  [ADR-0017](https://github.com/ACKaraca/arc-suite/blob/main/docs/adr/0017-exchange-connectors-and-licensed-bridges.md)).
+
+**Exit criteria**
+
+- Workflow [W15](product/workflows.md#w15-field-inspection-on-a-phone-without-a-connection) passes.
+- Workflow [W16](product/workflows.md#w16-add-an-extension-from-the-curated-catalog) passes.
+- Workflow [W17](product/workflows.md#w17-work-on-one-project-at-two-sites) passes.
+- A device whose access was revoked loses its tokens at once and its offline store at the next
+  contact.
+- An extension never reads or writes anything its user could not, verified by a permission test
+  suite over every host function and message-protocol operation.
+- A sealed bid is unreadable to every principal, including administrators, until its due date.

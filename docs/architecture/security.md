@@ -109,6 +109,11 @@ effect on the next request; decision caches are invalidated by grant-change even
 | Guard plug-ins | WebAssembly without ambient authority, receives only the operation's records, 2-second time limit, fault means refuse. |
 | Automation rules | Run as the rule's service identity; causation depth limit; every execution audited. |
 | Webhook targets | HTTPS only by default; private network ranges blocked unless allowlisted. |
+| Extensions | Frames run in a sandboxed frame from a separate origin with a content security policy limited to declared origins; components run without ambient authority and with resource limits. Rights are the intersection of the approved permission set and the acting user's permissions; every call is audited and attributed (HB-INTEG-013 to HB-INTEG-015, HB-INTEG-020). |
+| Bridge workers | Run a licensed conversion library as a separate process in the job sandbox, with no network except the Hub endpoint; their output is treated as untrusted input like any uploaded file. |
+| Mobile devices | The offline store is encrypted with a key in the platform's secure storage; revocation invalidates tokens at once and wipes the store at the next contact; push payloads carry no content (HB-MOBILE-012, HB-MOBILE-016). |
+| Replication peers | Mutual authentication; every received operation is validated by the receiving server's own operation registry and permission evaluator; revocations take priority (HB-OPS-023, HB-OPS-027). |
+| Stream sources | Authenticated per source, validated against the stream definition and rate-limited (HB-DATA-015). |
 | Agents | Authenticate as a user or service account; MCP tools map one-to-one to API operations with normal permission checks; write tools produce drafts that a person applies; agents cannot change permissions, delete permanently, decide reviews, sign or release (HB-ASSIST-004). |
 | Assistant providers | Content leaves the server only to configured endpoints, for allowed content types, with each request audited (HB-ASSIST-002). |
 

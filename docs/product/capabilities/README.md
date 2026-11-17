@@ -23,8 +23,8 @@ issue is done only when the behavior of those rows is met and verified.
 |---|---|---|---|
 | [01-organizations-projects.md](01-organizations-projects.md) | ORG | Documents | 26 |
 | [02-identity-access.md](02-identity-access.md) | ACCESS | Documents | 27 |
-| [03-files-versions.md](03-files-versions.md) | FILE | Documents | 27 |
-| [04-viewing-comparison.md](04-viewing-comparison.md) | VIEW | Documents | 26 |
+| [03-files-versions.md](03-files-versions.md) | FILE | Documents | 31 |
+| [04-viewing-comparison.md](04-viewing-comparison.md) | VIEW | Documents | 28 |
 | [05-markups.md](05-markups.md) | MARKUP | Documents | 16 |
 | [06-issues.md](06-issues.md) | ISSUE | Documents | 22 |
 | [07-reviews-approvals.md](07-reviews-approvals.md) | REVIEW | Documents | 17 |
@@ -32,9 +32,9 @@ issue is done only when the behavior of those rows is met and verified.
 | [09-information-management.md](09-information-management.md) | INFO | Documents | 22 |
 | [10-search.md](10-search.md) | SEARCH | Documents | 11 |
 | [11-desktop-sync.md](11-desktop-sync.md) | SYNC | Documents | 17 |
-| [12-construction-records.md](12-construction-records.md) | SITE | Documents | 20 |
+| [12-construction-records.md](12-construction-records.md) | SITE | Documents | 31 |
 | [13-design-packages.md](13-design-packages.md) | PKG | Design collaboration | 13 |
-| [14-multi-user-editing.md](14-multi-user-editing.md) | SESSION | Design collaboration | 16 |
+| [14-multi-user-editing.md](14-multi-user-editing.md) | SESSION | Design collaboration | 17 |
 | [15-coordination.md](15-coordination.md) | COORD | Design collaboration | 14 |
 | [16-pdm-files.md](16-pdm-files.md) | PDM | Product data | 27 |
 | [17-items-structure.md](17-items-structure.md) | ITEM | Product data | 22 |
@@ -43,13 +43,15 @@ issue is done only when the behavior of those rows is met and verified.
 | [20-production-review.md](20-production-review.md) | MEDIA | Production tracking | 16 |
 | [21-production-planning.md](21-production-planning.md) | PLAN | Production tracking | 13 |
 | [22-api-webhooks.md](22-api-webhooks.md) | API | Platform | 23 |
-| [23-automation-jobs.md](23-automation-jobs.md) | JOB | Platform | 17 |
-| [24-model-data.md](24-model-data.md) | DATA | Platform | 14 |
+| [23-automation-jobs.md](23-automation-jobs.md) | JOB | Platform | 22 |
+| [24-model-data.md](24-model-data.md) | DATA | Platform | 19 |
 | [25-administration.md](25-administration.md) | ADMIN | Platform | 18 |
-| [26-operations.md](26-operations.md) | OPS | Platform | 22 |
-| [27-integrations.md](27-integrations.md) | INTEG | Platform | 11 |
+| [26-operations.md](26-operations.md) | OPS | Platform | 30 |
+| [27-integrations.md](27-integrations.md) | INTEG | Platform | 21 |
 | [28-assistant.md](28-assistant.md) | ASSIST | Platform | 10 |
-| **Total** | | | **517** |
+| [29-mobile-clients.md](29-mobile-clients.md) | MOBILE | Platform | 17 |
+| [30-application-integrations.md](30-application-integrations.md) | PIPE | Platform | 14 |
+| **Total** | | | **594** |
 
 Organizations, identity and access serve every module; they are listed under Documents because
 that module is delivered first.

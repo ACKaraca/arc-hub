@@ -38,3 +38,9 @@ Domain objects:
 | HB-SESSION-014 | Branches | Users create a named branch of a model document from any version; the branch has its own versions, and the main line is unaffected. | T3 | 3 |
 | HB-SESSION-015 | Merge | Merging a branch computes an element-level three-way comparison from the journals of the common base, the branch and the target. A job applies non-conflicting operations with the headless application; conflicts are listed for resolution in the application; the result is a new version on the target with a merge record. | T3 | 5 |
 | HB-SESSION-016 | Merge requests | A merge can require a merge request with element comparison (HB-VIEW-023, HB-VIEW-024) and an approval workflow before it is applied. | T3 | 5 |
+
+## Browser participants
+
+| ID | Capability | Behavior | Tier | Phase |
+|---|---|---|---|---|
+| HB-SESSION-017 | Browser participants | The browser build of an Arc product (HB-FILE-028) joins a shared document like a desktop application: it downloads the snapshot and change sets, borrows elements, uploads change sets and shows presence, with the same conflict preservation (HB-SESSION-008). | T3 | 5 |

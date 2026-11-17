@@ -81,6 +81,9 @@ and production tasks are **records** on one engine ([ADR-0006](../adr/0006-recor
 | RecordLink | from_record, to (record, version, element, clash group) | |
 | Transmittal | record fields plus items[] (version_id), recipients[], receipts[], responses[] | Items fixed at send. |
 | DocumentPackage | id, name, package_version, items[], state | |
+| Estimate, EstimateVersion | project_id, name / lines[] (cost_code, quantity, unit, unit_cost, source_link) | Versions immutable once approved. |
+| BidPackage, Bid | scope, form, invitees[], due_at / company_id, values, sealed_until | Bids sealed until the due date. |
+| PurchaseOrder | vendor, lines[] (cost_line_id, quantity, price), revisions[], status | Record family on the workflow engine. |
 
 **Invariants**: a record's status is always one of its workflow's statuses and changes only along
 allowed transitions; decisions and sent transmittals are never edited; a change order reserves its
@@ -155,6 +158,10 @@ edit); a document in a locked lifecycle state cannot be checked out.
 | AutomationRule | event_filter, condition, actions[] or graph_blob, enabled | |
 | ElementRecord | version_id, element_id, class, name, container_id, properties (typed, with unit) | |
 | SavedQuery, Exchange | filter, aggregations / source_document, query, versions[] | |
+| MobileDevice | user_id, platform, client_version, push_token_ref, last_seen, status | Revocation removes tokens at once. |
+| Extension, ExtensionInstallation | manifest, version, digest, publisher_key, permission_set / scope, enabled, settings, approved_by | Rights are the intersection of the approved set and the acting user's permissions. |
+| DataStream, StreamLink, Reading | name, unit, rate, retention / stream_id, document_id, element_id / stream_id, time, value | Readings are partitioned by time. |
+| ReplicationPeer, ReplicationStream | site_id, endpoint, state / project_id, origin_site, position | Each operation carries site id and logical time. |
 | AuditRecord | org_id, seq, time, actor, on_behalf_of, action, object, summary, prev_hash, hash | Append-only, hash-chained. |
 
 ## Relationships

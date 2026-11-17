@@ -19,14 +19,15 @@ repair, copy design, merges).
 
 | Format | Read | Write | Notes |
 |---|---|---|---|
-| Arc native packages (`.archb`, `.draftb`, `.civilb`, `.solidb`, `.meshb`, `.renderb`, `.arcrev`) | view, data, edit | edit | Properties, references, journals and thumbnails read with `arc-doc`; change sets and merges for multi-user editing. |
+| Arc native packages (`.archb`, `.draftb`, `.civilb`, `.solidb`, `.meshb`, `.renderb`, `.arcrev`) | view, data, edit | edit | Properties, references, journals and thumbnails read with `arc-doc`; change sets and merges for multi-user editing; browser editing through the browser build of the owning product (HB-FILE-028). |
+| Proprietary project files without a published specification | view, data through an Arc exchange package | none | Packages come from connectors in the user's licensed application or from a bridge worker (HB-VIEW-027, HB-JOB-019); the original file stays the version. |
 | IFC 2x3, IFC 4, IFC 4.3 (STEP and ZIP encodings) | view, data | data (subsets for exchanges) | Element identity by GlobalId; property sets and quantities indexed; IDS validation. |
 | DWG and DXF | view, data | edit (properties, external reference paths) | Layers, text and title-block attributes indexed; external references resolved. |
 | PDF | view, data | data (cover sheets, reports, stamps) | Sheet extraction, text search, markups as annotations or flattened. |
 | STEP AP203, AP214, AP242 | view, data | data (conversion target) | Assembly structure for BOM extraction; header properties read. |
 | glTF 2.0, OBJ, STL, PLY, 3MF | view | view (conversion target) | |
 | OpenUSD | view | none | Production review of scenes. |
-| E57, LAS, LAZ | view | none | Streaming level-of-detail derivative. |
+| E57, LAS, LAZ | view | job outputs | Streaming level-of-detail derivative; reality-capture jobs (HB-JOB-020) store results in these formats. |
 | LandXML | view, data | none | Through CivilBuilder's command-line tool. |
 | Raster images (PNG, JPEG, TIFF, WebP) | view | none | Thumbnails; EXIF time and location for photos. |
 | OpenEXR, DPX, image sequences | view | none | Proxies through OpenColorIO configuration. |
@@ -38,6 +39,8 @@ repair, copy design, merges).
 | Format | Read | Write | Use |
 |---|---|---|---|
 | BCF 2.1 and 3.0 archives | data, edit | data | Issue import and export with viewpoints. |
+| Arc exchange package | data, edit | data | The open container specified in the `arc-core` interchange document; carries geometry, semantics, parameters, types, identifiers and relationships between connectors and the Hub. |
+| Time-series readings (JSON, CSV, MQTT payloads) | data | data (CSV, Parquet) | Live data streams linked to model elements (HB-DATA-015). |
 | IDS 1.0 | data | none | Information requirements and model checks. |
 | CSV, XLSX | data | data | Properties, members, companies, items, BOMs, entities, registers, reports. |
 | JSON (documented schemas) | data | data | Templates, organization export, clash results, BOMs, manifests. |
@@ -63,6 +66,9 @@ repair, copy design, merges).
 | SMTP | client | Email delivery. |
 | OpenMetrics, OTLP, syslog | producer | Observability and audit streaming. |
 | Model Context Protocol | server | Agent access to Hub tools. |
+| Platform push services | client | Mobile notifications; used only when an administrator configures credentials (HB-MOBILE-012). |
+| MQTT 5 | client | Subscription to data stream brokers that an administrator configures (HB-DATA-015). |
+| WebAssembly component model | host | Server-side extensions without ambient authority (HB-INTEG-014). |
 
 ## Mapping principles
 
@@ -95,7 +101,8 @@ repair, copy design, merges).
 
 | Content | Reason | How it is exchanged instead |
 |---|---|---|
-| Viewing or indexing proprietary model formats without a published specification (for example RVT and NWD) | The suite never reverse engineers formats. | Stored and versioned as files; shared for viewing as IFC, DWG or PDF exports. |
+| Parsing or reverse engineering proprietary model formats without a published specification (for example RVT and NWD) | The suite never reverse engineers formats or binaries. | Stored and versioned as files; viewed and indexed through Arc exchange packages from connectors or licensed bridge workers (HB-VIEW-027, HB-JOB-018), or exported as IFC, DWG or PDF. |
 | Proprietary cloud model-derivative formats | Not published. | Arc Hub produces its own viewables from open or Arc formats. |
-| Native mobile synchronization protocols of other services | Out of scope. | Tablet browsers (HB-VIEW-012) and the REST API. |
+| Native mobile synchronization protocols of other services | Not published. | The Arc mobile clients (HB-MOBILE-001), tablet browsers (HB-VIEW-012) and the REST API. |
 | Writing Office documents on the server | Requires an office suite. | WOPI host integration with a separately deployed office server (HB-INTEG-006). |
+| Running protected or compiled script files of other applications | Licensing and security. | Connectors run inside the other application; Hub jobs run Arc applications only. |

@@ -14,6 +14,9 @@ collaboration stages, extensibility, licensing and others) are recorded in
 | [0004](0004-unified-permission-model.md) | One permission model for every module | accepted |
 | [0005](0005-headless-arc-runners.md) | Heavy processing and automation by headless Arc applications | accepted |
 | [0006](0006-record-workflow-engine.md) | One record and workflow engine | accepted |
+| [0007](0007-native-mobile-clients.md) | Native mobile clients from the shared Rust crates | accepted |
+| [0008](0008-sandboxed-extensions-and-curated-catalog.md) | Sandboxed extensions and an administrator-curated catalog | accepted |
+| [0009](0009-asynchronous-multi-site-replication.md) | Asynchronous multi-site replication that keeps both sides of a conflict | accepted |
 
 ## Template
 
