@@ -95,6 +95,8 @@ customers automate with headless Arc applications.
 - HB-DATA-004, HB-DATA-005, HB-DATA-008 to HB-DATA-012
 - HB-SYNC-007 to HB-SYNC-016
 - All remaining phase-3 rows outside the product data areas (PDM, ITEM, ECO).
+- Assistance rows among them (HB-ASSIST) are offered when their task suites pass and never gate
+  this milestone.
 
 **Dependencies**
 
@@ -168,7 +170,7 @@ customers automate with headless Arc applications.
 **Scope**
 
 - All phase-5 rows not listed in M7, including HB-SESSION-001 to HB-SESSION-013, HB-SESSION-015, HB-SESSION-016,
-  HB-PKG-013, HB-ASSIST-001, HB-ASSIST-002, HB-ASSIST-005 to HB-ASSIST-010, HB-SITE-014 to
+  HB-PKG-013, HB-ASSIST-006 to HB-ASSIST-010, HB-ASSIST-019, HB-SITE-014 to
   HB-SITE-018, HB-SITE-020.
 
 **Dependencies**

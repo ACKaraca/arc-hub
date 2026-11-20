@@ -48,10 +48,10 @@ issue is done only when the behavior of those rows is met and verified.
 | [25-administration.md](25-administration.md) | ADMIN | Platform | 18 |
 | [26-operations.md](26-operations.md) | OPS | Platform | 30 |
 | [27-integrations.md](27-integrations.md) | INTEG | Platform | 21 |
-| [28-assistant.md](28-assistant.md) | ASSIST | Platform | 10 |
+| [28-assistant.md](28-assistant.md) | ASSIST | Platform | 20 |
 | [29-mobile-clients.md](29-mobile-clients.md) | MOBILE | Platform | 17 |
 | [30-application-integrations.md](30-application-integrations.md) | PIPE | Platform | 14 |
-| **Total** | | | **594** |
+| **Total** | | | **604** |
 
 Organizations, identity and access serve every module; they are listed under Documents because
 that module is delivered first.
